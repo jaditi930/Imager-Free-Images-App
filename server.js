@@ -6,6 +6,9 @@ const port=process.env.PORT
 
 app.use("/",require("./routes"))
 
+const connectDb=require("./connectDb")     //connect database
+connectDb()
+
 app.listen(port,()=>{
     console.log(`Server running on port ${port}`)
 })
