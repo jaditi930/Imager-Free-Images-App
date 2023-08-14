@@ -1,6 +1,15 @@
 const express=require("express")
 const app=express()
 
+const cors=require("cors")
+
+const corsOptions ={
+    origin:'http://127.0.0.1:5500', 
+    credentials:true,            
+
+}
+app.use(cors(corsOptions));
+
 const dotenv=require("dotenv").config()     //place it before declaring express app 
 
 const fileUpload = require('express-fileupload');  // for uploading images

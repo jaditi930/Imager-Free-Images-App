@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Imager - Get free images</h1>
+    <div id="images">
+    </div>
+    <script>
+        async function loadImages() {
+  const response = await fetch("http://localhost:4000");
+  const images = await response.json();
+  console.log(images.images);
+  const images_list=images.images
+  for(let i=0;i<images_list.length;i++)
+  {
+    let img=document.createElement("img")
+    img.src=`http://localhost:4000/images/${images_list[i].title}`
+    img.height="400"
+    img.width="400"
+    document.getElementById("images").appendChild(img)
+  }
+}
+loadImages()
+    </script>
+</body>
+</html>

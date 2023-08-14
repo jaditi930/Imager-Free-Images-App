@@ -57,7 +57,8 @@ const loginUser= asyncHandler(async (req,res)=>{
 })
 
 const getImages=asyncHandler(async (req,res)=>{
-    return res.status(200).json({"message":"Images loaded Successfully"})
+    const images=await Image.find()
+    return res.status(200).json({"images":images})
 })
 
 const uploadImage=asyncHandler(async (req,res)=>{
