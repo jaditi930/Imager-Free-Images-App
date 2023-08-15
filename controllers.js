@@ -1,9 +1,11 @@
 const asyncHandler=require("express-async-handler")
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
+const {v4 : uuidv4} = require('uuid')
+
 const User=require("./models/userModel")
 const Image=require("./models/imageModel")
-
+const Tag=require("./models/tagModel")
 
 
 const signUpUser=asyncHandler(async (req,res)=>{
@@ -64,14 +66,36 @@ const getImages=asyncHandler(async (req,res)=>{
 const uploadImage=asyncHandler(async (req,res)=>{
     console.log(req.user.username)
     const { image } = req.files;
-    
+
     if (!image) return res.sendStatus(400);
     const newImage=await Image.create({
-        title:image.name,author:req.user.username
+        title:image.name,author:req.user.username,path:uuidv4()
     })
     console.log(newImage)
+    // const {tags}=req.body;
+    // for(let tag of tags){
+    //     let findtag=Tag.find(
+    //         {
+    //             name : tag 
+    //         }	
+    //     ).count();
+    //     if (findtag>0)
+    //     {   
+    //         let images=JSON.parse(Tag.find({"name":tag},{"images":1}))
+    //         images.push(newImage._id)
+    //         Tag.updateOne({"name":tag},{
+    //             "$set": {
+    //               "images": JSON.stringify(images)
+    //             }
+    //           })
 
-    image.mv(__dirname + '/static/images/'+image.name);
+    //     }
+    //     else{
+    //         let nig=JSON.stringify([newImage._id])
+    //         Tag.create({name:tag,images:nig})
+    //     }
+    // }
+    image.mv(__dirname + '/static/images/'+newImage.path+"."+newImage.title.split(".")[1]);
 
     return res.status(200).json({"message":"Image uploaded Successfully"})
 })

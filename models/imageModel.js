@@ -9,7 +9,11 @@ const imageSchema = mongoose.Schema(
       title: {
         type: String,
         required: [true, "Title is required"],
-      }
+      },
+      path: {
+        type: String,
+        required: [true, "Path is required"],
+      },
     },{
       timestamps:true
     }
