@@ -72,29 +72,29 @@ const uploadImage=asyncHandler(async (req,res)=>{
         title:image.name,author:req.user.username,path:uuidv4()
     })
     console.log(newImage)
-    // const {tags}=req.body;
-    // for(let tag of tags){
-    //     let findtag=Tag.find(
-    //         {
-    //             name : tag 
-    //         }	
-    //     ).count();
-    //     if (findtag>0)
-    //     {   
-    //         let images=JSON.parse(Tag.find({"name":tag},{"images":1}))
-    //         images.push(newImage._id)
-    //         Tag.updateOne({"name":tag},{
-    //             "$set": {
-    //               "images": JSON.stringify(images)
-    //             }
-    //           })
+    const {tags}=req.body;
+    for(let tag of tags){
+        let findtag=await Tag.findOne(
+            {
+                name : tag 
+            }	
+        ).count();
+        if (findtag>0)
+        {   let imgs=await Tag.findOne({name:tag})
+            let images=JSON.parse(imgs.images)
+            images.push(newImage._id)
+            await Tag.updateOne({"name":tag},{
+                "$set": {
+                  "images": JSON.stringify(images)
+                }
+              })
 
-    //     }
-    //     else{
-    //         let nig=JSON.stringify([newImage._id])
-    //         Tag.create({name:tag,images:nig})
-    //     }
-    // }
+        }
+        else{
+            let nig=JSON.stringify([newImage._id])
+            await Tag.create({name:tag,images:nig})
+        }
+    }
     image.mv(__dirname + '/static/images/'+newImage.path+"."+newImage.title.split(".")[1]);
 
     return res.status(200).json({"message":"Image uploaded Successfully"})
