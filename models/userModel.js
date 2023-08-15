@@ -13,8 +13,8 @@ const userSchema = mongoose.Schema(
       },
       email:{
         type: String,
-        unique: [true,"Username already taken"],
-        required: [true, "Username is required"],
+        unique: [true,"Email already registered"],
+        required: [true, "Email is required"],
         lowercase: true,
         validate: [validateEmail, 'Please fill a valid email address'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
       timestamps:true
     }
   );
-  mongoose.connect(
-    "mongodb://0.0.0.0:27017/mydb"
-  )
-  module.exports = mongoose.model("User", userSchema);
+  // mongoose.connect(
+  //   "mongodb://0.0.0.0:27017/mydb"
+  // )
+  module.exports = mongoose.model("imageUser", userSchema);

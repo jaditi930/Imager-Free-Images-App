@@ -18,7 +18,7 @@ const imageSchema = mongoose.Schema(
       timestamps:true
     }
   );
-  mongoose.connect(
-    "mongodb://0.0.0.0:27017/mydb"
-  )
+  // mongoose.connect(
+  //   "mongodb://0.0.0.0:27017/mydb"
+  // )
   module.exports = mongoose.model("Image", imageSchema);
