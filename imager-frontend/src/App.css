@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Poppins:wght@300&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: black;
+  height: 100vh;
+  width:100vw;
+  color:white;
+}
+.heading{
+  font-size:3rem;
+  text-align: center;
+  padding:1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+.input{
+display: flex;
+align-items:center;
+justify-content: center;
+}
+.search{
+  width:60vw;
+  height:50px;
+  font-size: 1.5rem;
+  border:2px solid white;
+  background-color: black;
+  padding:0.5rem;
+  color:white;
+}
