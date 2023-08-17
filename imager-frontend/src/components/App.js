@@ -1,13 +1,21 @@
 import '../App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import ImageBox from './Image_Box'
+import NavBar from './NavBar';
+import Header from './Header';
+import Loader from './Loader';
+import SignUp from './SignUp'
+import Login from './Login';
+import UploadImage from './UploadImage';
+import { BrowserRouter,Routes,Route, useNavigate } from 'react-router-dom';
+
 function App() {
   const [searchQuery,setQuery]=useState("")
   const [images,setImages]=useState([])
   const [currentImage,setCurrentImage]=useState("")
+  const [loader,setloader]=useState("none")
+  const [token,setToken]=useState("")
 
   function showButton(e){
     setCurrentImage(e.target.id);
@@ -46,35 +54,55 @@ function App() {
     })
     .catch(() => console.log('An error in downloading the file sorry'));
   }
-
+  async function loadImages(){
+    setloader("block")
+    let response=await axios.get("https://imager-api.onrender.com");
+    setImages(response.data.images)
+    setloader("none")
+    }
 
   useEffect(()=>{
-    async function loadImages(){
-    let response=await axios.get("https://imager-api.onrender.com");
-    // console.log(response.data.images)
-    setImages(response.data.images)
-    }
+    
     loadImages();
     //Runs on every render
 },[]);
 
-
 async function searchImages(searchQuery){
+  setloader("block")
   let response=await axios.get(`https://imager-api.onrender.com/${searchQuery}`)
   setImages(response.data.images)
+  setloader("none")
 }
+async function login(user){
+  let response=await axios.post("https://imager-api.onrender.com/login",user)
+  console.log(response)
+  setToken(response.data.token)
+}
+function logout(){
+  setToken("")
+}
+async function signup(user){
+  let response=await axios.post("https://imager-api.onrender.com/signup",user)
+  console.log(response)
+}
+async function uploadImage(){
 
-
+}
   return (
     <>
-     <div className="heading">Imager - Download free images</div>
-     <div className='input'>
-     <input type="text" name="Search" className="search" placeholder="Search images ..." onChange={(e)=>
-    setQuery(e.target.value)}/>
-    <span><FontAwesomeIcon icon={faSearch} size='2xl' style={{marginLeft:"0.5rem",marginBottom:"0.5rem"}} onClick={()=>{searchImages(searchQuery)}}/></span>
-     </div>
-     <ImageBox images={images} showButton={showButton} removeButton={removeButton} downloadImage={downloadImage}/>
-    
+    <BrowserRouter>
+    <NavBar loadImages={loadImages}/>
+    <Routes>
+    <Route exact path="/signup" element={<SignUp signup={signup}/>}></Route>
+      <Route exact path="/" element={[
+          <Header searchQuery={searchQuery} searchImages={searchImages} setQuery={setQuery}/>,
+          <ImageBox display={loader} images={images} showButton={showButton} removeButton={removeButton} downloadImage={downloadImage}/>,
+          <Loader display={loader}/>]}
+      />
+    <Route exact path="/upload" element={<UploadImage uploadImage={uploadImage}/>}></Route>
+    <Route exact path="/login" element={<Login login={login}/>}></Route>
+    </Routes>
+    </BrowserRouter>    
      </>
   );
 }

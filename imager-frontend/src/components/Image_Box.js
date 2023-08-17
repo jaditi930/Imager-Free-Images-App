@@ -2,10 +2,10 @@ import Image from "./Image";
 
 export default function Image_Box(props){
     let images=props.images;
-    console.log(images)
+    let display=(props.display==="none")?"flex":"none";
+    
     let imgs_box1=[],imgs_box2=[],imgs_box3=[];
     for(let i=0;i<images.length;i++){
-        console.log(images[i].path)
         let trn=(i%3)+1;
         switch(trn)
             {
@@ -27,9 +27,9 @@ export default function Image_Box(props){
     let imgs_3=imgs_box3.map((image)=>{
         return <Image image={image} showButton={props.showButton} removeButton={props.removeButton}/>
     })
-    // console.log(imgs_box1,imgs_box2,imgs_box2)
+    console.log(imgs_box1,imgs_box2,imgs_box2)
     return (
-    <div id="image_box">
+    <div id="image_box" style={{display:display}}>
 
          <button id="dwld_btn" onClick={props.downloadImage}>Download</button>
 
