@@ -8,9 +8,32 @@ import axios from 'axios'
 function App() {
   const [searchQuery,setQuery]=useState("")
   const [images,setImages]=useState([])
-  const [turn,setTurn]=useState(0);
-  var trn=0;
+
   useEffect(()=>{
+    let script=document.createElement("script")
+
+    script.innerHTML=`
+    function showButton(e){
+      console.log("entered")
+    let rect_obj=e.target.getBoundingClientRect();
+      document.getElementById("dwld_btn").style.display="inline";
+      document.getElementById("dwld_btn").style.top=rect_obj.top+20+"px";
+      document.getElementById("dwld_btn").style.left=rect_obj.left+rect_obj.width-100+"px";
+  
+    }
+    function removeButton(e){
+      console.log("out")
+      if(event.relatedTarget==null)
+      return;
+      if(event.relatedTarget.id!="dwld_btn")
+      document.getElementById("dwld_btn").style.display="none";
+
+    }
+    `
+    // e.target.style.filter="brightness(80%)"
+
+    document.querySelector("body").insertBefore(script,document.querySelector("body").firstChild)
+    let trn=0;
     async function loadImages(){
     let response=await axios.get("https://imager-api.onrender.com");
     console.log(response.data.images)
@@ -20,13 +43,12 @@ function App() {
     document.getElementById("img_box3").innerHTML=""
 
     for(let image of response.data.images){
-      console.log(trn)
       let t=trn+1;
-      console.log(document.getElementById(`img_box${t}`))
       document.getElementById(`img_box${t}`).innerHTML+=`
-      <img src="https://imager-api.onrender.com/images/${image.path}.jpg">
+      <img src="https://imager-api.onrender.com/images/${image.path}.jpg"
+      onmouseenter="showButton(event);" onmouseleave="removeButton(event);">
       `    
-      setTurn((turn+1)%3)
+
       trn=(trn+1)%3;
     }
     }
@@ -35,16 +57,20 @@ function App() {
 
     //Runs on every render
 },[]);
+async function searchImages(searchQuery){
+  let response=await axios.get(`https://imager-api.onrender.com/${searchQuery}`)
+  setImages(response.data.images)
+}
   return (
     <>
      <div className="heading">Imager - Download free images</div>
      <div className='input'>
      <input type="text" name="Search" className="search" placeholder="Search images ..." onChange={(e)=>
     setQuery(e.target.value)}/>
-    <span><FontAwesomeIcon icon={faSearch}/></span>
+    <span><FontAwesomeIcon icon={faSearch} size='xl' onClick={()=>{searchImages(searchQuery)}}/></span>
      </div>
-     <div id="images_box">
-      
+     <div id="image_box">
+     <button id="dwld_btn">Download</button>
      <div id="img_box1">
       </div>
 
