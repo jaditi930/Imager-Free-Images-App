@@ -15,10 +15,10 @@
 }
 
 body{
-  background-color: black;
+  background-color: white;
   height: 100vh;
   width:98vw;
-  color:white;
+  color:black;
 }
 .heading{
   font-size:3rem;
@@ -36,9 +36,9 @@ justify-content: center;
   height:4rem;
   font-size: 1.2rem;
   border:2px solid white;
-  background-color: black;
+  background-color: gainsboro;
   padding:1.5rem 1rem;
-  color:white;
+  color:rgb(130, 100, 100);
   border-radius: 30px;
 }
 
@@ -66,19 +66,17 @@ img{
   max-width: 25vw;
   min-height: 200px;
   max-height: 800px;
-  --webkit-filter: brightness(100%);
+  filter: brightness(100%);
   @media only screen and (width<=1000px){
 
     min-width:30vw;
   max-width: 50vw;
 
 }
-
 }
-/* img:mouse{
-  scale: 1.2;
-  --webkit-filter: brightness(70%);
-} */
+img:hover{
+  filter:brightness(80%);
+}
 #dwld_btn{
   position:absolute;
   top:0;
@@ -87,5 +85,5 @@ img{
   width: fit-content;
   padding:5px 10px;
   display: none;
-  transition: hover ease 5s;
+  z-index: 1;
 }
