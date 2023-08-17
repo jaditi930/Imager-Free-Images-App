@@ -10,8 +10,7 @@ function App() {
   const [currentImage,setCurrentImage]=useState("")
 
   function showButton(e){
-    console.log(e.target.src)
-    setCurrentImage(e.target.src);
+    setCurrentImage(e.target.id);
     let rect_obj=e.target.getBoundingClientRect();
       document.getElementById("dwld_btn").style.display="inline";
       document.getElementById("dwld_btn").style.top=rect_obj.top+20+"px";
@@ -31,7 +30,8 @@ function App() {
 
   function downloadImage()
   {   
-    fetch(currentImage)
+    let currentURL=`https://imager-api.onrender.com/images/${currentImage}.jpg`
+    fetch(currentURL)
     .then(resp =>resp.blob())
     .then(blobobject => {
         const blob = window.URL.createObjectURL(blobobject);
@@ -71,7 +71,7 @@ async function searchImages(searchQuery){
      <div className='input'>
      <input type="text" name="Search" className="search" placeholder="Search images ..." onChange={(e)=>
     setQuery(e.target.value)}/>
-    <span><FontAwesomeIcon icon={faSearch} size='xl' onClick={()=>{searchImages(searchQuery)}}/></span>
+    <span><FontAwesomeIcon icon={faSearch} size='2xl' style={{marginLeft:"0.5rem",marginBottom:"0.5rem"}} onClick={()=>{searchImages(searchQuery)}}/></span>
      </div>
      <ImageBox images={images} showButton={showButton} removeButton={removeButton} downloadImage={downloadImage}/>
     

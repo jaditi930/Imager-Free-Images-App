@@ -2,8 +2,10 @@ import Image from "./Image";
 
 export default function Image_Box(props){
     let images=props.images;
+    console.log(images)
     let imgs_box1=[],imgs_box2=[],imgs_box3=[];
     for(let i=0;i<images.length;i++){
+        console.log(images[i].path)
         let trn=(i%3)+1;
         switch(trn)
             {
@@ -17,13 +19,13 @@ export default function Image_Box(props){
             } 
     }
     let imgs_1=imgs_box1.map((image)=>{
-        return <Image src={image.path} key={image._id} showButton={props.showButton} removeButton={props.removeButton}/>
+        return <Image image={image} showButton={props.showButton} removeButton={props.removeButton}/>
     })
     let imgs_2=imgs_box2.map((image)=>{
-        return <Image src={image.path} key={image._id} showButton={props.showButton} removeButton={props.removeButton}/>
+        return <Image image={image} showButton={props.showButton} removeButton={props.removeButton}/>
     })
     let imgs_3=imgs_box3.map((image)=>{
-        return <Image src={image.path} key={image._id} showButton={props.showButton} removeButton={props.removeButton}/>
+        return <Image image={image} showButton={props.showButton} removeButton={props.removeButton}/>
     })
     // console.log(imgs_box1,imgs_box2,imgs_box2)
     return (

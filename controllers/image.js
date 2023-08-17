@@ -53,7 +53,7 @@ const searchImages=asyncHandler(async (req,res)=>{
     console.log(keywords)
     for(let keyword of keywords){
         let regex=new RegExp(`${keyword}`)
-        let img_list=await Tag.find({name:{$regex: regex}},{images:1})
+        let img_list=await Tag.find({name:{$regex: regex}})
         console.log(img_list)
         for(let image of img_list){
             let images_list=JSON.parse(image.images)
