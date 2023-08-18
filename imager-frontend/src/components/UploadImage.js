@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function UploadImage(props){
+    let t=""
     const [Tags,setTags]=useState([])
     function removeTag(id){
         let remove_tag=document.getElementById(id)
@@ -12,7 +13,7 @@ export default function UploadImage(props){
         var formData = new FormData();
         formData.append("image", document.forms[0].image.files[0]);
         formData.append("tags",document.forms[0].tags.value)
-        let response=await axios.post("http://localhost:4000/upload",formData,{
+        let response=await axios.post("https://imager-api.onrender.com/upload",formData,{
           headers:{
             'Authorization':`Bearer ${props.token}`,
             'Content-Type': 'multipart/form-data'
@@ -21,10 +22,7 @@ export default function UploadImage(props){
         props.setMsg(response.data.message)
         console.log(response)
       }
-    let t=""
-    let tags=""
-    let taggs=props.tags;
-    tags=taggs.map((tag,index)=>{
+    let tags=Tags.map((tag,index)=>{
         return <Tag name={tag} id={index} key={index} removeTag={removeTag}/>
     })
     return (<>
@@ -51,7 +49,8 @@ export default function UploadImage(props){
           onKeyDownCapture={(e)=>{
             if(e.key==="Enter"){
                 e.preventDefault();
-            setTags([...taggs,e.target.value])
+            setTags([...Tags,e.target.value])
+            e.target.value=""
             }
         }}
         />

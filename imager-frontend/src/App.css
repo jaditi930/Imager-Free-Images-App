@@ -77,10 +77,10 @@ img{
 img:hover{
   filter:brightness(80%);
 }
-#dwld_btn{
+.dwld_btn{
   position:absolute;
-  top:0;
-  left:0;
+  top:5%;
+  right:5%;
   background-color: gainsboro;
   width: fit-content;
   padding:5px 10px;

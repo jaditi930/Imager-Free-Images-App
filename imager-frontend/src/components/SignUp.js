@@ -17,7 +17,7 @@ export default function SignUp(props){
        })
        .catch((err)=>{
          props.setMsg("Username or email already exists")
-         navigate("/login")
+         navigate("/signup")
      
        })
      }
