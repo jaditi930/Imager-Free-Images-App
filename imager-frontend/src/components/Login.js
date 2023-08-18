@@ -10,7 +10,7 @@ export default function Login(props){
     }
     function login(user){
         console.log(user)
-        axios.post("http://localhost:4000/login",user)
+        axios.post("https://imager-api.onrender.com/login",user)
         .then((response)=>{
           props.setToken(response.data.token)
           props.setMsg("Logged in Successfully")
@@ -26,7 +26,7 @@ export default function Login(props){
         <form >
         <div className="heading" style={{fontSize:"4rem",paddingBottom:"0px"}}>Welcome Back
         <div className="subheading">New to Imager?&nbsp;&nbsp;
-        <Link to="/login">SignUp here</Link>
+        <Link to="/signup">SignUp here</Link>
         </div>
         </div>
             <div>
