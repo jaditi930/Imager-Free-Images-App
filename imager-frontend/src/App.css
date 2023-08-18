@@ -113,12 +113,12 @@ form{
   flex-direction: column;
   gap:2rem;
   padding: 2rem;
-  max-width: 400px;
+  max-width: 80vw;
 }
 form input{
   height:40px;
   padding:10px;
-  width:300px;
+  width:90%;
   border: 2px solid black;
 }
 form div{
@@ -155,4 +155,11 @@ form div button:hover{
   display: flex;
   flex-wrap: wrap;
   height: fit-content;
+}
+#alert{
+  background-color: black;
+  color:white;
+  display: flex;
+  height: 50px;
+  align-items: center;
 }

@@ -1,11 +1,26 @@
 import { useNavigate } from "react-router-dom"
 import {Link} from 'react-router-dom'
+import axios from "axios";
+
 export default function Login(props){
     let navigate=useNavigate();
     let user={
         username:"",
         password:""
     }
+    function login(user){
+        console.log(user)
+        axios.post("https://imager-api.onrender.com/login",user)
+        .then((response)=>{
+          props.setToken(response.data.token)
+          props.setMsg("Logged in Successfully")
+            navigate("/")
+        })
+        .catch((err)=>{
+          console.log(err)
+        props.setMsg("Username or Password is wrong")
+        })
+      }
     return (
         <div className="form">
         <form >
@@ -18,6 +33,7 @@ export default function Login(props){
             <input 
         type="text" 
         name="username" 
+        id="username"
         placeholder="Username"
         onChange={(e)=>{user.username=e.target.value;}}
       />
@@ -26,15 +42,17 @@ export default function Login(props){
         <input 
           type="password" 
           name="password" 
+          id="password"
           placeholder="Password"
           onChange={(e)=>{user.password=e.target.value;}}
         />
         </div>
         <div>
-        <button type="submit" onClick={(e)=>{
+        <button onClick={(e)=>{
            e.preventDefault();
-            props.login(user);
-            navigate("/")
+            login(user)
+            document.getElementById("username").value=""
+            document.getElementById("password").value=""
             }}>Submit</button>
         </div>
     </form>
