@@ -35,7 +35,7 @@ export default function Image(props){
     let src=props.image.path||props.image
     let image_src=`https://imager-api.onrender.com/images/${src}.jpg`
     return (
-        <span style={{position:"relative"}}>
+        <span style={{position:"relative",width:"fit-content"}}>
         <img src={image_src} 
         onMouseEnter={(event)=>{showButton(event)}}
          onMouseLeave={(event)=>{removeButton(event)}} 

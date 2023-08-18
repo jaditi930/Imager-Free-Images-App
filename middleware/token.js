@@ -1,13 +1,13 @@
 const asyncHandler=require("express-async-handler")
 const jwt=require("jsonwebtoken")
-const test = require('dotenv').config()
+require('dotenv').config()
 
 const validateToken=asyncHandler(async (req,res,next)=>{
   let authHeader = req.headers.Authorization || req.headers.authorization;
 
   if (authHeader && authHeader.startsWith("Bearer")) {
     token = authHeader.split(" ")[1];
-    secret_key=test.parsed['SECRET_KEY']
+    secret_key=process.env.SECRET_KEY
     if (!token) {
 
         res.status(400).json({"error":"User is not authorized or token is missing"});
