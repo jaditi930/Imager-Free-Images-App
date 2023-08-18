@@ -10,7 +10,7 @@ export default function Login(props){
     }
     function login(user){
         console.log(user)
-        axios.post("https://imager-api.onrender.com/login",user)
+        axios.post("http://localhost:4000/login",user)
         .then((response)=>{
           props.setToken(response.data.token)
           props.setMsg("Logged in Successfully")

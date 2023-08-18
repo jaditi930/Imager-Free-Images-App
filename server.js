@@ -3,12 +3,12 @@ const app=express()
 
 const cors=require("cors")
 
-const corsOptions ={
-    origin:['http://localhost:3000','https://imager-api.onrender.com/','https://imager-76bv.onrender.com/'], 
-    credentials:true,            
+// const corsOptions ={
+//     origin:['http://localhost:3000','https://imager-api.onrender.com/','https://imager-76bv.onrender.com/'], 
+//     credentials:true,            
 
-}
-app.use(cors(corsOptions));
+// }
+app.use(cors());
 
 const dotenv=require("dotenv").config()     //place it before declaring express app 
 
