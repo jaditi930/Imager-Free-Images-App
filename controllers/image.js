@@ -11,14 +11,16 @@ const getImages=asyncHandler(async (req,res)=>{
 
 const uploadImage=asyncHandler(async (req,res)=>{
     console.log(req.user.username)
+    console.log(req.image);
     const { image } = req.files;
-
+console.log(image)
     if (!image) return res.sendStatus(400);
     const newImage=await Image.create({
         title:image.name,author:req.user.username,path:uuidv4()
     })
     console.log(newImage)
     const {tags}=req.body;
+    console.log(tags)
     for(let tag of tags){
         let findtag=await Tag.findOne(
             {

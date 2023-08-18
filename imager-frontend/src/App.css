@@ -148,6 +148,7 @@ form div button:hover{
   margin: 0.25rem;
   font-size: 0.8rem;
   display: inline;
+  width: fit-content;
 }
 #tags
 {

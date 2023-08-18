@@ -1,20 +1,21 @@
-import { useState } from "react";
-import Tags from "./Tags";
+import Tag from "./Tag";
+
 export default function UploadImage(props){
-    const [tags,setTags]=useState([])
     function removeTag(id){
         let remove_tag=document.getElementById(id)
         document.getElementById("tags").removeChild(remove_tag)
 
     }
-    let taggs=tags.map((tag,index)=>{
-        console.log(index)
-        return <Tags name={tag} id={index} removeTag={removeTag}/>
+    let tags=""
+
+    let taggs=props.tags;
+    // document.getElementById("tags").innerHTML=""
+    tags=taggs.map((tag,index)=>{
+        return <Tag name={tag} id={index} key={index} removeTag={removeTag}/>
     })
-    console.log(taggs)
-    return (
+    return (<>
         <div className="form">
-        <form >
+        <form>
             <div>
             <input 
         type="file" 
@@ -23,7 +24,7 @@ export default function UploadImage(props){
       />
             </div>
         <div id="tags">
-            {taggs}
+        {tags}
         </div>
         <div>
         <input 
@@ -31,10 +32,9 @@ export default function UploadImage(props){
           name="tags" 
           placeholder="Enter tags"
           onKeyDownCapture={(e)=>{
-            if(e.key=="Enter")
-            setTags([...tags,e.target.value])
-        console.log(tags)
-            // registerTags(e)
+            e.preventDefault();
+            if(e.key==="Enter")
+            props.setTags([...taggs,e.target.value])
         }}
         />
         </div>
@@ -44,7 +44,8 @@ export default function UploadImage(props){
             props.uploadImage();
             }}>Submit</button>
         </div>
-    </form>
+        </form>
         </div>
+        </>
     )
 }

@@ -9,13 +9,18 @@ import SignUp from './SignUp'
 import Login from './Login';
 import UploadImage from './UploadImage';
 import { BrowserRouter,Routes,Route, useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
+
 
 function App() {
+
   const [searchQuery,setQuery]=useState("")
   const [images,setImages]=useState([])
   const [currentImage,setCurrentImage]=useState("")
   const [loader,setloader]=useState("none")
   const [token,setToken]=useState("")
+  const [tags,setTags]=useState([])
+
 
   function showButton(e){
     setCurrentImage(e.target.id);
@@ -77,6 +82,7 @@ async function login(user){
   let response=await axios.post("https://imager-api.onrender.com/login",user)
   console.log(response)
   setToken(response.data.token)
+  console.log(token)
 }
 function logout(){
   setToken("")
@@ -86,7 +92,21 @@ async function signup(user){
   console.log(response)
 }
 async function uploadImage(){
-
+  var formData = new FormData();
+  formData.append("image", document.forms[0].image.files[0]);
+  formData.append("tags",document.forms[0].tags.value)
+  console.log(token)
+  let response=await axios.post("http://localhost:4000/upload",formData,{
+    headers:{
+      'Authorization':`Bearer ${token}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  },)
+  console.log(response)
+  let variant="success";
+  let alert=<Alert key={variant} variant={variant}>
+            {response.data.message}
+          </Alert>
 }
   return (
     <>
@@ -99,7 +119,7 @@ async function uploadImage(){
           <ImageBox display={loader} images={images} showButton={showButton} removeButton={removeButton} downloadImage={downloadImage}/>,
           <Loader display={loader}/>]}
       />
-    <Route exact path="/upload" element={<UploadImage uploadImage={uploadImage}/>}></Route>
+    <Route exact path="/upload" element={<UploadImage uploadImage={uploadImage} tags={tags} setTags={setTags}/>}></Route>
     <Route exact path="/login" element={<Login login={login}/>}></Route>
     </Routes>
     </BrowserRouter>    
