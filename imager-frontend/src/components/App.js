@@ -10,7 +10,7 @@ import Login from './Login';
 import UploadImage from './UploadImage';
 import Alert from './Alert';
 import { BrowserRouter,Routes,Route} from 'react-router-dom';
-
+import { MetaTags } from 'react-meta-tags';
 
 function App() {
 
@@ -39,6 +39,9 @@ function logout(){
 
   return (
     <>
+    <MetaTags>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    </MetaTags>
     <BrowserRouter>
     <NavBar loadImages={loadImages}/>
     <Alert alertMsg={alertMsg} setMsg={setMsg}/>

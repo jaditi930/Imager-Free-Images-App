@@ -24,7 +24,7 @@ export default function SignUp(props){
     return (
       <div className="form">
         <form >
-        <div className="heading" style={{fontSize:"4rem",paddingBottom:"0px"}}>Join Imager
+        <div className="heading" style={{paddingBottom:"0px"}}>Join Imager
         <div className="subheading">Already have an account?&nbsp;&nbsp;
         <Link to="/login">Login here</Link>
         </div>

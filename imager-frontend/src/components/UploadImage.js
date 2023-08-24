@@ -28,7 +28,7 @@ export default function UploadImage(props){
     return (<>
         <div className="form">
         <form>
-        <div className="heading" style={{fontSize:"4rem",paddingBottom:"0px"}}>Upload Image</div>
+        <div className="heading" style={{paddingBottom:"0px"}}>Upload Image</div>
             <div>
             <input 
         type="file" 

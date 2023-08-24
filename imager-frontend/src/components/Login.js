@@ -24,7 +24,7 @@ export default function Login(props){
     return (
         <div className="form">
         <form >
-        <div className="heading" style={{fontSize:"4rem",paddingBottom:"0px"}}>Welcome Back
+        <div className="heading" style={{paddingBottom:"0px"}}>Welcome Back
         <div className="subheading">New to Imager?&nbsp;&nbsp;
         <Link to="/signup">SignUp here</Link>
         </div>
